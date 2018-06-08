@@ -120,29 +120,36 @@ void deleteHead(linkedList *list) { // DEKAPITACJA
     printf("Obecna lista:\n");
     printList(list);
 
-
 }
 
 void deleteTail(linkedList *list ) {
 
-    if(!list->tail) {
+    if(!list->head) {
         printf("Nie ma czego usunac!");
+        return;
+    }
+
+    if(!list->head->next) {
+        free(list->head);
+        list->head = NULL;
+        list->tail = NULL;
+        printf("Tyl pomyslnie usuniety!\n");
+        printf("Obecna lista:\n");
+        printList(list);
         return;
     }
 
     node *newTail = list->head;
 
-    while(newTail->next != list->tail) {    //finding the pointer to old tail
+    while(newTail->next != list->tail) {
         newTail = newTail->next;
     }
-
-    free(list->tail);
     newTail->next = NULL;
+    free(list->tail);
     list->tail = newTail;
     printf("Tyl pomyslnie usuniety!\n");
     printf("Obecna lista:\n");
     printList(list);
-
 }
 
 int main(void) {
